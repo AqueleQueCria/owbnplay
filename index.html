@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Fichas - Lobisomem: O Apocalipse (MET)</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-cinzel { font-family: 'Cinzel', serif; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <div class="max-w-4xl w-full bg-zinc-900 border border-zinc-800 rounded-xl shadow-2xl p-6 md:p-10">
+        <header class="text-center mb-8 border-b border-zinc-800 pb-6">
+            <h1 class="text-3xl md:text-4xl font-bold tracking-wider text-amber-500 uppercase">Lobisomem: O Apocalipse</h1>
+            <p class="text-zinc-400 text-sm mt-1">Mind's Eye Theatre: Laws of the Wild Revised - Sistema de Criação de Ficha</p>
+        </header>
+
+        <form id="charForm" class="space-y-8">
+            <!-- Passo 1: Informações Básicas e Conceito -->
+            <section class="space-y-4">
+                <h2 class="text-xl font-semibold text-amber-400 border-l-4 border-amber-500 pl-3">1. Conceito e Identidade</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">Nome do Personagem</label>
+                        <input type="text" id="charName" required class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none" placeholder="Ex: Thomas Jonah Sampson (T.J.)">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">Jogador</label>
+                        <input type="text" id="playerName" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none" placeholder="Seu Nome">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">Natureza (Essência)</label>
+                        <input type="text" id="charNature" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none" placeholder="Ex: Alpha, Cuidador, Tradicionalista">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">Demeanor (Máscara)</label>
+                        <input type="text" id="charDemeanor" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none" placeholder="Ex: Construtor, Juiz, Rebelde">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Passo 2: Raça, Auspice e Tribo -->
+            <section class="space-y-4">
+                <h2 class="text-xl font-semibold text-amber-400 border-l-4 border-amber-500 pl-3">2. Raça, Auspice e Tribo</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">Raça (Breed)[cite: 67, 70]</label>
+                        <select id="charBreed" onchange="handleBreedChange()" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none">
+                            <option value="homid">Homid (Humano - Gnose: 1)[cite: 70]</option>
+                            <option value="metis">Metis (Estéril/Deformado - Gnose: 3)[cite: 70]</option>
+                            <option value="lupus">Lupus (Lobo - Gnose: 5)[cite: 70]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">Auspice (Lua)[cite: 70, 72]</label>
+                        <select id="charAuspice" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none">
+                            <option value="ragabash">Ragabash [Nova] (Fúria: 1)[cite: 70, 72]</option>
+                            <option value="theurge">Theurge [Crescente] (Fúria: 2)[cite: 72]</option>
+                            <option value="philodox">Philodox [Meia] (Fúria: 3)[cite: 72]</option>
+                            <option value="galliard">Galliard [Gibosa] (Fúria: 4)[cite: 72]</option>
+                            <option value="ahroun">Ahroun [Cheia] (Fúria: 5)[cite: 72]</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-zinc-400 mb-1">Tribo[cite: 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60]</label>
+                        <select id="charTribe" onchange="handleTribeChange()" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none">
+                            <option value="furies">Black Furies (Vontade: 3)[cite: 40, 72]</option>
+                            <option value="gnawers">Bone Gnawers (Vontade: 4)[cite: 43, 72]</option>
+                            <option value="children">Children of Gaia (Vontade: 4)[cite: 45, 72]</option>
+                            <option value="fianna">Fianna (Vontade: 3)[cite: 47, 73]</option>
+                            <option value="fenris">Get of Fenris (Vontade: 3)[cite: 49, 73]</option>
+                            <option value="walkers">Glass Walkers (Vontade: 3)[cite: 51, 73]</option>
+                            <option value="talons">Red Talons (Vontade: 3)[cite: 53, 73]</option>
+                            <option value="lords">Shadow Lords (Vontade: 3)[cite: 55, 73]</option>
+                            <option value="striders">Silent Striders (Vontade: 3)[cite: 57, 73]</option>
+                            <option value="fangs">Silver Fangs (Vontade: 3)[cite: 59, 73]</option>
+                            <option value="uktena">Uktena (Vontade: 3)[cite: 61, 73]</option>
+                            <option value="wendigo">Wendigo (Vontade: 4)[cite: 63, 74]</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Campo dinâmico para Deformidade Metis -->
+                <div id="metisContainer" class="hidden bg-zinc-950 p-4 rounded-lg border border-amber-900/50 mt-4">
+                    <label class="block text-xs uppercase tracking-wider text-amber-400 mb-1 font-semibold">Desfiguração Metis Obrigatória[cite: 69, 71]</label>
+                    <select id="metisFlaw" class="w-full bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-zinc-100 focus:border-amber-500 focus:outline-none">
+                        <option value="albino">Albino (Sensível à luz)[cite: 71]</option>
+                        <option value="blind">Cego (Falha automática em visão)[cite: 71]</option>
+                        <option value="chitinous">Pele Quitinosa (+1 Saúde, mas Aparência Repugnante)[cite: 71]</option>
+                        <option value="deaf">Surdo (Perde testes auditivos)[cite: 71]</option>
+                        <option value="horns">Chifres ou Cascos (Penalidade Social)[cite: 71]</option>
+                        <option value="hunchback">Corcunda (Sem traços ágeis/elegantes)[cite: 71]</option>
+                        <option value="withered">Membro Mutilado/Seco (-2 em corrida ou uso do membro)[cite: 71]</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Status Dinâmicos Calculados -->
+            <section class="bg-zinc-950 p-4 rounded-xl border border-zinc-800 grid grid-cols-3 gap-4 text-center">
+                <div>
+                    <span class="block text-xs uppercase text-zinc-500 font-semibold">Fúria (Rage)[cite: 67, 108]</span>
+                    <span id="statRage" class="text-2xl font-cinzel text-amber-500 font-bold">1</span>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase text-zinc-500 font-semibold">Gnose (Gnosis)[cite: 67, 109]</span>
+                    <span id="statGnosis" class="text-2xl font-cinzel text-amber-500 font-bold">1</span>
+                </div>
+                <div>
+                    <span class="block text-xs uppercase text-zinc-500 font-semibold">Vontade (Willpower)[cite: 67, 110]</span>
+                    <span id="statWillpower" class="text-2xl font-cinzel text-amber-500 font-bold">3</span>
+                </div>
+            </section>
+
+            <!-- Botão de Ação -->
+            <div class="text-center pt-4">
+                <button type="button" onclick="generateSheet()" class="bg-amber-600 hover:bg-amber-500 text-zinc-950 font-bold px-8 py-3 rounded-lg shadow-lg transition-all uppercase tracking-wider text-sm font-cinzel cursor-pointer">
+                    Gerar Ficha de Personagem
+                </button>
+            </div>
+        </form>
+
+        <!-- Área de Exibição da Ficha Pronta -->
+        <div id="outputSection" class="hidden mt-10 border-t border-zinc-800 pt-8 space-y-6">
+            <h2 class="text-2xl font-cinzel text-amber-400 text-center">Resumo da Ficha de Personagem</h2>
+            <div id="sheetSummary" class="bg-zinc-950 p-6 rounded-xl border border-zinc-800 space-y-3 text-zinc-300 text-sm md:text-base">
+                <!-- Inserido via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleBreedChange() {
+            const breed = document.getElementById('charBreed').value;
+            const metisContainer = document.getElementById('metisContainer');
+            const gnoseStat = document.getElementById('statGnosis');
+            
+            if (breed === 'homid') gnoseStat.textContent = '1';
+            if (breed === 'metis') gnoseStat.textContent = '3';
+            if (breed === 'lupus') gnoseStat.textContent = '5';
+
+            if (breed === 'metis') {
+                metisContainer.classList.remove('hidden');
+            } else {
+                metisContainer.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('charAuspice').addEventListener('change', function() {
+            const auspice = this.value;
+            const rageStat = document.getElementById('statRage');
+            const mapRage = { ragabash: 1, theurge: 2, philodox: 3, galliard: 4, ahroun: 5 };
+            rageStat.textContent = mapRage[auspice];
+        });
+
+        function handleTribeChange() {
+            const tribe = document.getElementById('charTribe').value;
+            const wpStat = document.getElementById('statWillpower');
+            const mapWp = { gnawers: 4, children: 4, wendigo: 4 };
+            wpStat.textContent = mapWp[tribe] || 3;
+        }
+
+        function generateSheet() {
+            const name = document.getElementById('charName').value || "Sem Nome";
+            const player = document.getElementById('playerName').value || "Não informado";
+            const nature = document.getElementById('charNature').value || "Não informada";
+            const demeanor = document.getElementById('charDemeanor').value || "Não informado";
+            const breed = document.getElementById('charBreed').value;
+            const auspice = document.getElementById('charAuspice').value;
+            const tribe = document.getElementById('charTribe').value;
+            
+            const rage = document.getElementById('statRage').textContent;
+            const gnose = document.getElementById('statGnosis').textContent;
+            const willpower = document.getElementById('statWillpower').textContent;
+
+            let extraInfo = "";
+            if (breed === 'metis') {
+                const metisFlaw = document.getElementById('metisFlaw').value;
+                extraInfo = `<p><strong class="text-amber-500">Deformidade Metis:</strong> ${metisFlaw}</p>`;
+            }
+
+            const summaryHtml = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-zinc-800 pb-4">
+                    <p><strong class="text-amber-500">Personagem:</strong> ${name}</p>
+                    <p><strong class="text-amber-500">Jogador:</strong> ${player}</p>
+                    <p><strong class="text-amber-500">Natureza:</strong> ${nature}</p>
+                    <p><strong class="text-amber-500">Demeanor:</strong> ${demeanor}</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 border-b border-zinc-800 pb-4">
+                    <p><strong class="text-amber-500">Raça:</strong> ${breed.toUpperCase()}</p>
+                    <p><strong class="text-amber-500">Auspice:</strong> ${auspice.toUpperCase()}</p>
+                    <p><strong class="text-amber-500">Tribo:</strong> ${tribe.toUpperCase()}</p>
+                </div>
+                <div class="grid grid-cols-3 gap-4 text-center py-2 bg-zinc-900 rounded-lg">
+                    <p><strong>Fúria:</strong> ${rage}</p>
+                    <p><strong>Gnose:</strong> ${gnose}</p>
+                    <p><strong>Vontade:</strong> ${willpower}</p>
+                </div>
+                ${extraInfo}
+                <p class="text-xs text-zinc-500 text-center pt-2">Ficha gerada com base nas diretrizes de Laws of the Wild Revised[cite: 1, 2]. Pronto para exportar para o seu grupo online!</p>
+            `;
+
+            document.getElementById('sheetSummary').innerHTML = summaryHtml;
+            document.getElementById('outputSection').classList.remove('hidden');
+            document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
